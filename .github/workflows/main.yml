@@ -1,0 +1,33 @@
+name: Generate Rainfall GIF
+
+on:
+  push:
+    paths:
+      - '*.nc'
+
+jobs:
+  build-gif:
+    runs-on: ubuntu-latest 
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install xarray netcdf4 matplotlib pandas pillow
+
+      - name: Run Animation Script
+        run: python generate_gif.py
+
+      - name: Upload GIF Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: temporal-animation
+          path: output_animation.gif
