@@ -24,7 +24,7 @@ jobs:
           pip install xarray netcdf4 matplotlib pandas pillow
 
       - name: Run Animation Script
-        run: python generate_gif.py
+        run: generating_gif.py
 
       - name: Upload GIF Artifact
         uses: actions/upload-artifact@v4
